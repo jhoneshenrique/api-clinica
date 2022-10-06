@@ -1,21 +1,24 @@
 package com.jhones.apiclinica.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-public class Agenda {
+public class Agenda extends RepresentationModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @NotBlank
     private String dayOfTheWeek;
-    @NotBlank
-    @Column(columnDefinition = "TIME")
+    @NotNull
     private LocalTime beginsAt;
-    @NotBlank
-    @Column(columnDefinition = "TIME")
+    @NotNull
     private LocalTime endsAt;
 
 

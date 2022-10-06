@@ -18,4 +18,17 @@ public class AppointmentService {
     public Iterable<Appointment> loadAllAppointments(){
         return appointmentRepository.findAll();
     }
+
+    public Appointment loadAppointmentById(long id){
+        return appointmentRepository.findAppointmentById(id);
+    }
+
+    public Appointment update(Appointment appointment){
+        return  appointmentRepository.save(appointment);
+    }
+
+    public Appointment delete(Appointment appointment){
+        appointmentRepository.delete(appointment);
+        return  appointment;
+    }
 }

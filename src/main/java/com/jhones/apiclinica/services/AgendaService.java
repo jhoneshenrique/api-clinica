@@ -16,8 +16,11 @@ public class AgendaService {
     }
 
     public Iterable<Agenda> loadAllAvailableTime(){
-        Iterable<Agenda> availableTime = agendaRepository.findAll();
-        return  availableTime;
+        return agendaRepository.findAll();
+    }
+
+    public Agenda loadAvailableTime(long id){
+        return agendaRepository.findAgendaById(id);
     }
 
     public void delete(Agenda agenda){

@@ -1,11 +1,15 @@
 package com.jhones.apiclinica.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-public class Doctor {
+public class Doctor extends RepresentationModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

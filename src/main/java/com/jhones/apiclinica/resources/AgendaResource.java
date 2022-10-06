@@ -23,4 +23,20 @@ public class AgendaResource {
     public @ResponseBody Iterable<Agenda> loadAllAvailableTime(){
         return agendaService.loadAllAvailableTime();
     }
+
+    @GetMapping(value = "/{id}")
+    public @ResponseBody Agenda loadAgendaById(@PathVariable("id") long id){
+        return agendaService.loadAvailableTime(id);
+    }
+    @PutMapping
+    public Agenda updateTime(@RequestBody @Valid Agenda agenda){
+        return agendaService.save(agenda);
+    }
+
+    @DeleteMapping
+    public Agenda deleteTime(@RequestBody Agenda agenda){
+        agendaService.delete(agenda);
+        return agenda;
+    }
+
 }

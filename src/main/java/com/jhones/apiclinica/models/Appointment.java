@@ -1,11 +1,17 @@
 package com.jhones.apiclinica.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-public class Appointment {
+public class Appointment extends RepresentationModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,8 +21,10 @@ public class Appointment {
     @ManyToOne
     private Patient patient;
 
+    @NotNull
     private LocalDate appointmentDate;
 
+    @NotNull
     private LocalTime appointmentTime;
 
     Appointment(){}

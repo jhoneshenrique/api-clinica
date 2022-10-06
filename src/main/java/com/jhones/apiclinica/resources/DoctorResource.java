@@ -28,4 +28,16 @@ public class DoctorResource {
     public @ResponseBody Doctor loadDoctorById(@PathVariable("id") long id){
         return doctorService.loadDoctorById(id);
     }
+
+    @PutMapping
+    public Doctor update(@RequestBody @Valid Doctor doctor){
+        return doctorService.save(doctor);
+    }
+
+    @DeleteMapping
+    public Doctor delete(@RequestBody Doctor doctor){
+        doctorService.delete(doctor);
+        return doctor;
+    }
+
 }

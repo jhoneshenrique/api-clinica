@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,20 +29,36 @@ public class AppointmentResource {
     @PostMapping
     public ResponseEntity<Object> saveAppointment(@RequestBody @Valid Appointment appointment){
         List<Agenda> doctorsAgenda = appointment.getDoctor().getAgenda();
-        boolean disponivel = false;
+        boolean dayAvailable = false;
+        //Checks if the doctor can attent the appointment that day of the week
         Iterator<Agenda> iterator = doctorsAgenda.iterator();
         while(iterator.hasNext()){
             String day = iterator.next().getDayOfTheWeek();
-            String dayOfWeek = String.valueOf(appointment.getAppointmentDate().getDayOfWeek());
-            System.out.println(dayOfWeek);
-            if(day.equalsIgnoreCase(dayOfWeek)){
-                disponivel = true;
+            if(day.equalsIgnoreCase(String.valueOf(appointment.getAppointmentDate().getDayOfWeek()))){
+                dayAvailable = true;
             }
         }
-        if (!disponivel==true){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Doctor is not available!");
-        }else{
-            return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.save(appointment));
+
+        //Checks if the doctor can attent the appointment at that time
+        boolean timeAvailable = false;
+        Iterator<Agenda> iteratorTime = doctorsAgenda.iterator();
+        while(iteratorTime.hasNext()){
+            LocalTime time = iteratorTime.next().getBeginsAt();
+            if(time.compareTo(appointment.getAppointmentTime())==0){
+                timeAvailable = true;
+            }
         }
+        
+
+        //Alert the user if the doctor's agenda or the appointment time is not available
+        if (!dayAvailable || !timeAvailable){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Doctor is not available!");
+        }
+//        if(!appointmentAvailable){
+//            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: This time is not available!");
+//        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.save(appointment));
+
     }
 }
