@@ -5,6 +5,9 @@ import com.jhones.apiclinica.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @Service
 public class AppointmentService {
 
@@ -17,6 +20,10 @@ public class AppointmentService {
 
     public Iterable<Appointment> loadAllAppointments(){
         return appointmentRepository.findAll();
+    }
+
+    public  Appointment findBookedAppointment(Long id, LocalDate appointmentDate, LocalTime appointmentTime){
+        return  appointmentRepository.findBookedAppointment(appointmentDate,appointmentTime,id);
     }
 
     public Appointment loadAppointmentById(long id){

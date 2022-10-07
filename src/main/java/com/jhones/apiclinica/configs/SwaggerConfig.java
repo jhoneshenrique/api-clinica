@@ -6,6 +6,7 @@ import org.springframework.hateoas.client.LinkDiscoverer;
 import org.springframework.hateoas.client.LinkDiscoverers;
 import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
 import org.springframework.plugin.core.SimplePluginRegistry;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -27,17 +28,21 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.jhones.apiclinica"))
-                .paths(regex("/patient.*")) //URI root
+                .paths(PathSelectors.any()) //URI root
                 .build()
                 .apiInfo(metaInfo());
+
     }
+
+
 
     //API Information
     private ApiInfo metaInfo() {
 
         ApiInfo apiInfo = new ApiInfo(
                 "Clínica Média Restful API",
-                "Essa é API de uma clínica médica",
+                "Essa é uma API de uma clínica médica. Ela provê os recursos necessários para gerenciar" +
+                        " médicos (e seus horários disponíveis), pacientes e suas consultas.",
                 "1.0",
                 "Terms of Service",
                 new Contact("Jhones Henrique", "https://github.com/jhoneshenrique/api-clinica",
