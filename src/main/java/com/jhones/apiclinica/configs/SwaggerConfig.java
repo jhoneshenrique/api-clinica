@@ -41,8 +41,7 @@ public class SwaggerConfig {
 
         ApiInfo apiInfo = new ApiInfo(
                 "Clínica Média Restful API",
-                "Essa é uma API de uma clínica médica. Ela provê os recursos necessários para gerenciar" +
-                        " médicos (e seus horários disponíveis), pacientes e suas consultas.",
+                "Essa é uma API de uma clínica médica. Ela provê os recursos necessários para gerenciar médicos (e seus horários disponíveis), pacientes e suas consultas.",
                 "1.0",
                 "Terms of Service",
                 new Contact("Jhones Henrique", "https://github.com/jhoneshenrique/api-clinica",

@@ -7,6 +7,7 @@ import com.jhones.apiclinica.services.AgendaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ public class AgendaResource {
     @Autowired
     AgendaService agendaService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Salva um horário")
     @PostMapping
     public Agenda saveTime(@RequestBody @Valid Agenda agenda){
